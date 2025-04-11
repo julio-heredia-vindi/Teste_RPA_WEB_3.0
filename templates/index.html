@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Extrator B3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>📈 Extrator de Dados B3</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message.replace('\n', '<br>')|safe }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <label for="data_inicio">Data Inicial:</label>
+            <input type="date" id="data_inicio" name="data_inicio" required>
+
+            <label for="data_fim">Data Final:</label>
+            <input type="date" id="data_fim" name="data_fim" required>
+
+            <button type="submit">Extrair Dados</button>
+        </form>
+
+        {% if pasta_id %}
+            <br>
+            <a href="{{ url_for('baixar_arquivos', pasta_id=pasta_id) }}">
+                <button type="button">📥 Baixar ZIP com Arquivos</button>
+            </a>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+
