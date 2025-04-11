@@ -13,12 +13,17 @@ import tempfile
 import zipfile
 import uuid
 import chromedriver_autoinstaller
+import shutil
 
 app = Flask(__name__)
 app.secret_key = 'segredo'
 
-CHROME_PATH = "/usr/bin/google-chrome"
+# Verifica o caminho do Google Chrome
+CHROME_PATH = shutil.which("google-chrome") or "/usr/bin/google-chrome"
 CHROMEDRIVER_PATH = chromedriver_autoinstaller.install()
+
+print(f"CHROME_PATH: {CHROME_PATH}")
+print(f"CHROMEDRIVER_PATH: {CHROMEDRIVER_PATH}")
 
 # Mapeia os IDs temporários para caminhos reais
 pasta_temp_map = {}
