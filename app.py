@@ -17,6 +17,7 @@ import chromedriver_autoinstaller
 app = Flask(__name__)
 app.secret_key = 'segredo'
 
+CHROME_PATH = "/usr/bin/google-chrome"
 CHROMEDRIVER_PATH = chromedriver_autoinstaller.install()
 
 # Mapeia os IDs temporários para caminhos reais
@@ -33,6 +34,7 @@ def extrair_tabela_por_data(data_str, pasta_destino):
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-gpu')
+        options.binary_location = CHROME_PATH
         driver = webdriver.Chrome(service=Service(CHROMEDRIVER_PATH), options=options)
         driver.get(url)
 
